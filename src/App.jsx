@@ -5,9 +5,9 @@ import "./App.css";
 
 function App() {
     return (
-        <div className="app-layout">
+        <div className="app-layout font-sans text-gray-900 flex flex-col min-h-screen">
             <Navbar />
-            <main>
+            <main className="flex grow">
                 <Outlet></Outlet>
             </main>
             <Footer />
