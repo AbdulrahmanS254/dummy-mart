@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/endaza-logo.png";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function SignIn() {
+    const { user, loginAction } = useAuth();
+
+    const navigate = useNavigate();
+
     const [input, setInput] = useState({
         username: "",
         password: "",
     });
+
     const [error, setError] = useState("");
 
     const handleInput = (e) => {
@@ -18,7 +24,7 @@ export default function SignIn() {
         if (error) setError("");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const user = input.username.trim();
         const pass = input.password.trim();
@@ -27,7 +33,19 @@ export default function SignIn() {
             setError("Please fill in all fields.");
             return;
         }
-        console.log("Logging in with:", { username: user, password: pass });
+
+        try {
+            await loginAction(input);
+            navigate("/products");
+        } catch (err) {
+            if (typeof err === "string") {
+                setError(err);
+            } else if (err.message) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred. Please try again.");
+            }
+        }
     };
 
     return (
