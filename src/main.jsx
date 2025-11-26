@@ -8,6 +8,7 @@ import App from "./App.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import Products from "./pages/Products/Products.jsx";
+import AuthGuard from "./components/AuthGuard.jsx";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/cart",
-                element: <Cart />,
+                element: (
+                    <AuthGuard>
+                        <Cart />
+                    </AuthGuard>
+                ),
             },
             {
                 path: "/sign-in",

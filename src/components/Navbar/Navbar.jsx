@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "/endaza-logo.png";
 import { useAuth } from "../../context/AuthContext.jsx";
 
+import { HiMiniShoppingCart } from "react-icons/hi2";
+
 export default function Navbar() {
     const { user, logOut } = useAuth();
 
@@ -51,8 +53,11 @@ export default function Navbar() {
                                         alt="user photo"
                                     />
                                 </div>
+                                <Link to={"/cart"}>
+                                    <HiMiniShoppingCart className="text-2xl text-midnight" />
+                                </Link>
                                 <button
-                                    onClick={logOut} // استدعاء دالة الخروج
+                                    onClick={logOut}
                                     className="text-sm font-medium bg-red-500 text-white p-1 rounded hover:bg-red-700 transition-colors cursor-pointer"
                                 >
                                     Logout
