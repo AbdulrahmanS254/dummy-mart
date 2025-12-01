@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 // import { useCart } from "../context/AuthContext";
 
 export default function ProductCard({ product }) {
-    const { id, title, description, price, image } = product;
+    const { id, title, description, price } = product;
+
+    const image = "/product-sample.png";
 
     return (
         <div className="product-card bg-orange-50 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between overflow-hidden border border-orange-100 group">
