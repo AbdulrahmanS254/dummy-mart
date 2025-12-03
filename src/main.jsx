@@ -8,6 +8,7 @@ import App from "./App.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import Products from "./pages/Products/Products.jsx";
+import Product from "./pages/Product/Product.jsx";
 import AuthGuard from "./components/AuthGuard.jsx";
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/products",
                 element: <Products />,
+            },
+            {
+                path: "/product/:id",
+                element: <Product />,
             },
         ],
     },

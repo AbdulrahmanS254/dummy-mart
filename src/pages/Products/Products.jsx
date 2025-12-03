@@ -26,7 +26,7 @@ export default function Products() {
         const fetchProducts = async () => {
             try {
                 const response = await fetch(
-                    `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=title,price`
+                    `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
                 );
                 if (!response.ok) {
                     throw new Error("Error has occured");
