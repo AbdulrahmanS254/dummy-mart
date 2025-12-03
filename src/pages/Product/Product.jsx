@@ -29,7 +29,6 @@ export default function Product() {
         fetchProduct();
     }, [id]);
 
-    // --- حالات التحميل والخطأ ---
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -53,11 +52,9 @@ export default function Product() {
         );
     }
 
-    // --- عرض المنتج ---
     return (
         <div className="container mx-auto px-4 py-12">
             
-            {/* زرار الرجوع */}
             <Link 
                 to="/products" 
                 className="inline-flex items-center gap-2 text-gray-500 hover:text-midnight mb-8 transition-colors"
@@ -68,7 +65,6 @@ export default function Product() {
             <div className="bg-white rounded-2xl shadow-sm border border-orange-50 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     
-                    {/* القسم الأيمن: الصورة */}
                     <div className="bg-orange-50 p-8 flex items-center justify-center min-h-[400px]">
                         <img 
                             src={product.images ? product.images[0] : product.thumbnail} 
@@ -77,7 +73,6 @@ export default function Product() {
                         />
                     </div>
 
-                    {/* القسم الأيسر: التفاصيل */}
                     <div className="p-8 md:p-12 flex flex-col justify-center">
                         <span className="text-orange-500 font-semibold tracking-wider text-sm uppercase mb-2">
                             {product.category}
@@ -87,7 +82,6 @@ export default function Product() {
                             {product.title}
                         </h1>
 
-                        {/* التقييم (اختياري لو متاح في الـ API) */}
                         <div className="flex items-center gap-2 mb-6">
                             <span className="bg-midnight text-white text-xs px-2 py-1 rounded">
                                 {product.rating} ★
@@ -110,7 +104,7 @@ export default function Product() {
                             </div>
 
                             <button 
-                                className="w-full sm:w-auto bg-orange-300 text-midnight px-8 py-4 rounded-xl font-bold text-lg hover:bg-midnight hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                className="w-full sm:w-auto bg-orange-300 text-midnight px-8 py-4 rounded-xl font-bold text-lg hover:bg-midnight hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer"
                                 // onClick={() => addToCart(product)} // لاحقاً
                             >
                                 Add to Cart
