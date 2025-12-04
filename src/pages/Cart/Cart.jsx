@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
 
-export default function Cart() {
-    const cartItems = [
-        {
-            id: 1,
-            title: "Handmade Crochet Hat",
-            price: 25,
-            quantity: 2,
-            thumbnail: "/product-sample.png",
-        },
-    ];
+import { useCart } from "../../context/CartContext";
 
-    const total = 50;
+export default function Cart() {
+    const {
+        cartItems,
+        incrementQuantity,
+        decrementQuantity,
+        removeFromCart,
+        clearCart,
+    } = useCart();
 
     if (cartItems.length === 0) {
         return (
@@ -31,6 +29,11 @@ export default function Cart() {
             </div>
         );
     }
+
+    const total = cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+    );
 
     return (
         <div className="container mx-auto px-4 py-12">
@@ -63,13 +66,19 @@ export default function Cart() {
                             </div>
 
                             <div className="flex items-center gap-4 bg-gray-50 rounded-lg p-1">
-                                <button className="w-8 h-8 flex items-center justify-center text-midnight hover:bg-white hover:shadow-sm rounded-md transition-all font-bold">
+                                <button
+                                    className="w-8 h-8 flex items-center justify-center text-midnight hover:bg-white hover:shadow-sm rounded-md transition-all font-bold cursor-pointer"
+                                    onClick={() => decrementQuantity(item.id)}
+                                >
                                     -
                                 </button>
                                 <span className="w-8 text-center font-medium text-midnight">
                                     {item.quantity}
                                 </span>
-                                <button className="w-8 h-8 flex items-center justify-center text-midnight hover:bg-white hover:shadow-sm rounded-md transition-all font-bold">
+                                <button
+                                    className="w-8 h-8 flex items-center justify-center text-midnight hover:bg-white hover:shadow-sm rounded-md transition-all font-bold cursor-pointer"
+                                    onClick={() => incrementQuantity(item.id)}
+                                >
                                     +
                                 </button>
                             </div>
@@ -78,7 +87,10 @@ export default function Cart() {
                                 <p className="text-lg font-bold text-midnight mb-2">
                                     ${(item.price * item.quantity).toFixed(2)}
                                 </p>
-                                <button className="text-red-400 text-sm hover:text-red-600 underline decoration-red-200 underline-offset-4 transition-colors">
+                                <button
+                                    className="text-red-400 text-sm hover:text-red-600 underline decoration-red-200 underline-offset-4 transition-colors cursor-pointer"
+                                    onClick={() => removeFromCart(item.id)}
+                                >
                                     Remove
                                 </button>
                             </div>
@@ -114,7 +126,7 @@ export default function Cart() {
                             </div>
                         </div>
 
-                        <button className="w-full bg-midnight text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <button className="w-full bg-midnight text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 cursor-pointer">
                             Checkout
                         </button>
                     </div>

@@ -3,33 +3,109 @@ import { useNavigate } from "react-router-dom";
 
 const CartContext = createContext(null);
 
-export function CartProvider({ children }) {
-    // Checking if there is cart items in the local storage
-    const getInitialCart = () => {
-        let cartData = localStorage.getItem("cartItems");
-        return cartData ? JSON.parse(cartItems) : [];
-    };
+// reducer function
+function cartReducer(state, action) {
+    switch (action.type) {
+        case "ADD_ITEM": {
+            const product = action.payload;
+            const existingItem = state.find((item) => item.id === product.id);
+            if (existingItem) {
+                return state.map((item) =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity++ }
+                        : item
+                );
+            } else {
+                return [...state, { ...product, quantity: 1 }];
+            }
+        }
 
+        case "REMOVE_ITEM": {
+            const productId = action.payload;
+            return state.filter((item) => item.id !== productId);
+        }
+
+        case "INCREMENT_QUANTITY": {
+            const productId = action.payload;
+            return state.map((item) =>
+                item.id === productId
+                    ? { ...item, quantity: item.quantity++ }
+                    : item
+            );
+        }
+
+        case "DECREMENT_QUANTITY": {
+            const productId = action.payload;
+            return state.map((item) =>
+                item.id === productId
+                    ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+                    : item
+            );
+        }
+
+        case "CLEAR_CART": {
+            return [];
+        }
+    }
+}
+
+// Checking if there is cart items in the local storage to store it as an initial value
+const getInitialCart = () => {
+    let cartData = localStorage.getItem("cartData");
+    return cartData ? JSON.parse(cartData) : [];
+};
+
+export function CartProvider({ children }) {
     const [cartItems, dispatch] = useReducer(cartReducer, [], getInitialCart);
 
+    // storing the cart in the local storage
     useEffect(() => {
         localStorage.setItem("cartData", JSON.stringify(cartItems));
     }, [cartItems]);
 
-    function cartReducer(state, action) {
-        switch (action.type) {
-            case "ADD_ITEM": {
-                const product = action.payload;
-                const existingItem = state.find(
-                    (item) => item.id === product.id
-                );
-                if (existingItem) {
-                }
-            }
-        }
-    }
+    // dispatch functions
+    const addToCart = (product) => {
+        dispatch({
+            type: "ADD_ITEM",
+            payload: product,
+        });
+    };
+    const removeFromCart = (productId) => {
+        dispatch({
+            type: "REMOVE_ITEM",
+            payload: productId,
+        });
+    };
+    const incrementQuantity = (productId) => {
+        dispatch({
+            type: "INCREMENT_QUANTITY",
+            payload: productId,
+        });
+    };
+    const decrementQuantity = (productId) => {
+        dispatch({
+            type: "DECREMENT_QUANTITY",
+            payload: productId,
+        });
+    };
+    const clearCart = () => {
+        dispatch({ type: "CLEAR_CART" });
+    };
 
-    return <CartContext.Provider>{children}</CartContext.Provider>;
+    return (
+        <CartContext.Provider
+            value={{
+                cartItems,
+                addToCart,
+                removeFromCart,
+                incrementQuantity,
+                decrementQuantity,
+                clearCart,
+            }}
+        >
+            {children}
+        </CartContext.Provider>
+    );
 }
 
 export function useCart() {

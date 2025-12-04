@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-// import { useCart } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
     const { id, title, description, price, thumbnail } = product;
-    console.log(product);
+    const { addToCart } = useCart();
 
     return (
         <div className="product-card bg-orange-50 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between overflow-hidden border border-orange-100 group">
@@ -40,7 +40,7 @@ export default function ProductCard({ product }) {
                         E£{price}
                     </span>
 
-                    <button className="bg-orange-300 text-midnight px-4 py-2 rounded-lg text-sm font-semibold hover:bg-midnight hover:text-white transition-colors duration-300 shadow-sm cursor-pointer">
+                    <button className="bg-orange-300 text-midnight px-4 py-2 rounded-lg text-sm font-semibold hover:bg-midnight hover:text-white transition-colors duration-300 shadow-sm cursor-pointer" onClick={() => addToCart(product)}>
                         Add to cart
                     </button>
                 </div>
