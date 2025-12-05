@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from "/endaza-logo.png";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useCart } from "../../context/CartContext.jsx";
 
 import { HiMiniShoppingCart } from "react-icons/hi2";
 
 export default function Navbar() {
     const { user, logOut } = useAuth();
+    const { cartItems } = useCart();
+
+    const cartTotal = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
         <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
@@ -53,8 +57,9 @@ export default function Navbar() {
                                         alt="user photo"
                                     />
                                 </div>
-                                <Link to={"/cart"}>
+                                <Link className="relative" to={"/cart"}>
                                     <HiMiniShoppingCart className="text-2xl text-midnight" />
+                                    <span className="absolute -right-2 -top-2 text-black text-xs bg-orange-300 rounded-full w-4 h-4 flex items-center justify-center">{cartTotal}</span>
                                 </Link>
                                 <button
                                     onClick={logOut}
