@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useCart } from "../../context/CartContext";
 
@@ -10,6 +10,8 @@ export default function Cart() {
         removeFromCart,
         clearCart,
     } = useCart();
+
+    const navigate = useNavigate();
 
     if (cartItems.length === 0) {
         return (
@@ -29,6 +31,18 @@ export default function Cart() {
             </div>
         );
     }
+
+    const handleCheckout = () => {
+        const confirmBuy = window.confirm(
+            "Are you sure you want to proceed with the payment?"
+        );
+
+        if (confirmBuy) {
+            clearCart();
+            alert("Payment Successful! Thank you for your order.");
+            navigate("/");
+        }
+    };
 
     const total = cartItems.reduce(
         (acc, item) => acc + item.price * item.quantity,
@@ -126,7 +140,10 @@ export default function Cart() {
                             </div>
                         </div>
 
-                        <button className="w-full bg-midnight text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 cursor-pointer">
+                        <button
+                            onClick={handleCheckout}
+                            className="w-full bg-midnight text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 cursor-pointer"
+                        >
                             Checkout
                         </button>
                     </div>
