@@ -2,7 +2,7 @@
 
 A modern, responsive e-commerce web application specializing in handmade crochet products. This project demonstrates a full shopping experience including authentication, product browsing with server-side pagination, and a fully functional shopping cart state management.
 
-🔗 **Live Demo:** [Click here to visit Indaza](INSERT_VERCEL_LINK_HERE)
+🔗 **Live Demo:** [Click here to visit Indaza](https://indaza.vercel.app/)
 
 ![Project Preview](screenshot.png) 
 
@@ -43,5 +43,4 @@ src/
 ├── components/       # Reusable UI components (Navbar, ProductCard, Footer, etc.)
 ├── context/          # Global State (AuthContext, CartContext)
 ├── pages/            # Page components (Home, Products, ProductDetails, Cart, Login)
-├── routes/           # Route definitions and AuthGuard
 └── main.jsx          # Entry point with Providers setup
