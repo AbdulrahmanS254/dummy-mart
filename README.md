@@ -1,41 +1,47 @@
-# 🛒 Dummy Mart
+# 🧶 Indaza - Handmade E-commerce Store
 
-![Work in Progress](https://img.shields.io/badge/status-work%20in%20progress-yellow)
+A modern, responsive e-commerce web application specializing in handmade crochet products. This project demonstrates a full shopping experience including authentication, product browsing with server-side pagination, and a fully functional shopping cart state management.
 
-This project is a complete e-commerce storefront, "Dummy Mart," built with React. The primary objective is to build a full-featured application that uses a real (mock) API for all its data, including products, **authentication**, and a **server-side cart**.
+🔗 **Live Demo:** [Click here to visit Indaza](INSERT_VERCEL_LINK_HERE)
 
-This project is built using the [DummyJSON API](https://dummyjson.com/docs/products).
+![Project Preview](screenshot.png) 
 
----
+## ✨ Key Features
 
-## 🚀 Project Goals & Features
+### 🔐 Authentication & Security
+* **User Authentication:** Fully functional Login/Logout system integrated with DummyJSON Auth API.
+* **Protected Routes:** Implemented `AuthGuard` to secure sensitive routes (like the Cart) from unauthorized access.
+* **Persistent Session:** User session is saved in LocalStorage to persist login state upon refresh.
 
-This project is currently in development. The plan is to implement the following features:
+### 🛍️ Shopping Experience
+* **Server-Side Pagination:** Efficiently fetching products in chunks (limit & skip) to handle large datasets and improve performance.
+* **Dynamic Product Details:** Detailed view for each product using React Router dynamic parameters.
+* **Smart Cart System:** * Add items to cart without page reloads.
+    * Update quantities (increment/decrement) with logic to prevent negative numbers.
+    * Real-time total price calculation.
+    * **Persistent Cart:** Cart data is saved in LocalStorage so users don't lose their items on refresh.
+    * Checkout simulation.
 
-* **Full User Authentication:**
-    * Implement a complete Login/Logout flow using the DummyJSON API (`/auth/login`).
-    * Manage user tokens in `localStorage` for persistent sessions.
-    * Use **React Context** to manage global authentication state (user data, token, and login status).
-
-* **Protected Routes:**
-    * Make pages like the "Cart" and user profile accessible *only* to logged-in users.
-    * Create a dynamic `Navbar` that changes (e.g., shows "Login" vs. "Logout" & "Cart") based on the auth state.
-
-* **Product Catalog & Pagination:**
-    * Fetch products from the `/products` endpoint.
-    * Implement **server-side pagination** using the `limit` and `skip` parameters provided by the API.
-
-* **Server-Side Shopping Cart:**
-    * Fetch a user-specific cart from the API (`/carts/user/{userId}`).
-    * Handle all cart actions (Add, Remove, Update Quantity) by making `PUT` and `POST` requests to the API, not just updating local state.
-    * Implement modal confirmation for deleting items.
-
----
+### 🎨 UI/UX & Responsive Design
+* **Responsive Navigation:** Custom-built hamburger menu for mobile devices with smooth transitions.
+* **Modern Styling:** Built with **Tailwind CSS** for a clean, consistent, and "Indaza" branded aesthetic.
+* **Interactive Elements:** Hover effects, loading skeletons/spinners, and toast notifications (simulated).
 
 ## 🛠️ Tech Stack
 
-* **React**
-* **React Router DOM**
-* **React Context API** (for Authentication & User State)
-* **Vite**
-* **Tailwind CSS** / **CSS**
+* **Frontend Library:** React.js (Vite)
+* **Styling:** Tailwind CSS
+* **Routing:** React Router DOM (v6)
+* **State Management:** React Context API + useReducer (for complex Cart logic)
+* **API:** DummyJSON (for Products & Auth)
+* **Icons:** React Icons (Heroicons)
+
+## 📂 Project Structure
+
+```text
+src/
+├── components/       # Reusable UI components (Navbar, ProductCard, Footer, etc.)
+├── context/          # Global State (AuthContext, CartContext)
+├── pages/            # Page components (Home, Products, ProductDetails, Cart, Login)
+├── routes/           # Route definitions and AuthGuard
+└── main.jsx          # Entry point with Providers setup
