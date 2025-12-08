@@ -12,7 +12,7 @@ function cartReducer(state, action) {
             if (existingItem) {
                 return state.map((item) =>
                     item.id === product.id
-                        ? { ...item, quantity: item.quantity++ }
+                        ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             } else {
@@ -29,7 +29,7 @@ function cartReducer(state, action) {
             const productId = action.payload;
             return state.map((item) =>
                 item.id === productId
-                    ? { ...item, quantity: item.quantity++ }
+                    ? { ...item, quantity: item.quantity + 1 }
                     : item
             );
         }
